@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Rose Day Bubu!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffe6e6; /* Soft pink background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #overlay {
+            position: fixed;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .main-text {
+            position: absolute;
+            top: 20%;
+            width: 100%;
+            text-align: center;
+            font-size: 2.5rem;
+            color: #d63384;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+
+        .animation-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+        }
+
+        /* The Boy Character */
+        .boy {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            transition: all 1s ease-in-out;
+        }
+
+        /* The Rose */
+        .rose {
+            position: absolute;
+            width: 40px;
+            bottom: 60px;
+            right: 40px;
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes kneel {
+            0% { transform: translateX(-50%) translateY(0); }
+            100% { transform: translateX(-50%) translateY(50px) scale(0.9); }
+        }
+
+        .show { opacity: 1 !important; }
+    </style>
+</head>
+<body>
+
+   <body>
+    <div id="overlay" onclick="startExperience()">
+        <h1 style="text-align:center; color:#d63384;">Tap to open your gift, Bubu 🌹</h1>
+    </div>
+
+    <div class="main-text" id="heading">Happy Rose Day, Bubu! ❤️</div>
+
+    <div class="animation-container">
+        <img src="boy.png" id="boy" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:200px; z-index:2;">
+        
+        <img src="rose.png" id="rose" style="position:absolute; bottom:80px; left:55%; width:50px; z-index:1; opacity:0; transition: all 1.5s ease;">
+    </div>
+
+    <audio id="bgMusic" src="music.mp3" loop></audio>
+
+    <script>
+        function startExperience() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('bgMusic').play();
+
+            const boy = document.getElementById('boy');
+            const rose = document.getElementById('rose');
+            const heading = document.getElementById('heading');
+
+            // Step 1: Show the rose behind him
+            setTimeout(() => {
+                rose.style.opacity = "1";
+            }, 500);
+
+            // Step 2: Boy kneels and brings rose forward
+            setTimeout(() => {
+                // Kneeling effect
+                boy.style.transition = "transform 1s ease";
+                boy.style.transform = "translateX(-50%) translateY(40px)"; 
+                
+                // Rose moves to his hand in front
+                rose.style.zIndex = "3"; 
+                rose.style.left = "40%";
+                rose.style.bottom = "120px";
+                rose.style.transform = "rotate(-20deg)";
+            }, 2000);
+
+            // Step 3: Show the big text
+            setTimeout(() => {
+                heading.style.opacity = "1";
+            }, 3000);
+        }
+    </script>
+</body>
